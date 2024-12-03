@@ -9,15 +9,15 @@
 #define MAX_WORDS 50
 
 //Function declarations
-void loadGame(char game[][MAX_LENGTH], int *lineCount);
-void userInput(char userInput[MAX_WORDS][MAX_LENGTH], int lineCount);
-void replaceIndex(char game[][MAX_LENGTH], char userInput[MAX_WORDS][MAX_LENGTH], int lineCount);
-void printGame(char game [][MAX_LENGTH], int lineCount);
-void initialize_arr(char arr[][MAX_LENGTH], int size);
-void initialize_userInput(char userInput [MAX_WORDS][MAX_LENGTH], int size);
-void playGame(char game[][MAX_LENGTH], char userInput[MAX_WORDS][MAX_LENGTH]);
+void loadGame(char game[][MAX_LENGTH], int *lineCount); // KACE
+void userInput(char userInput[MAX_WORDS][MAX_LENGTH], int lineCount); // DON
+void replaceIndex(char game[][MAX_LENGTH], char userInput[MAX_WORDS][MAX_LENGTH], int lineCount); // TAYLOR
+void printGame(char game [][MAX_LENGTH], int lineCount); // KACE
+void initialize_arr(char arr[][MAX_LENGTH], int size); // DON
+void initialize_userInput(char userInput [MAX_WORDS][MAX_LENGTH], int size); // TAYLOR
+void playGame(char game[][MAX_LENGTH], char userInput[MAX_WORDS][MAX_LENGTH]); // TAYLOR
 
-int main(){
+int main(){ //KACE
 	char game[MAX_WORDS][MAX_LENGTH];
 	char userInput[MAX_WORDS][MAX_LENGTH];
 	int lineCount;
@@ -35,7 +35,6 @@ int main(){
 	
 	fclose(file);	
 	
-
 	return 0;
 }	
 
