@@ -15,10 +15,13 @@ void replaceIndex(char game[][MAX_LENGTH], char user_inputs[MAX_WORDS][MAX_LENGT
 void printGame(char game [][MAX_LENGTH], int lineCount); // KACE
 void initialize_arr(char arr[][MAX_LENGTH], int size); // DON
 void initialize_user_inputs(char user_inputs [MAX_WORDS][MAX_LENGTH], int size); // TAYLOR
-void playGame(char game[][MAX_LENGTH], char userInput[MAX_WORDS][MAX_LENGTH]); // TAYLOR
+void playGame(char game[][MAX_LENGTH], char user_inputs[MAX_WORDS][MAX_LENGTH]); // TAYLOR
 
 int main(){ //KACE
 	char game[MAX_WORDS][MAX_LENGTH];
+	char user_inputs[MAX_WORDS][MAX_LENGTH];
+	char arr[MAX_WORDS][MAX_LENGTH];
+	int size;
 	int lineCount = 0;
 
 // Create the madlibs.txt file and write the initial Mad Libs template
@@ -51,9 +54,15 @@ FILE *file = fopen("madlib2.txt", "w"); // Open the file for writing
 
 // Load the Mad Libs game from the file
 	loadGame(game, &lineCount);
+	
+// Initializing the array
+	initialize_arr(arr, size);
+	
+// User input
+	userInput(user_inputs, lineCount, game);
 
 // Print the game content
-	printf("Loaded Mad Libs Template:\n");
+	printf("\nLoaded Mad Libs Template:\n");
 	printGame(game, lineCount);
 
 return 0;
@@ -103,7 +112,8 @@ void userInput(char user_inputs[MAX_WORDS][MAX_LENGTH], int lineCount, char game
 	   	 }
 	}
    }
-}        
+}     
+   
 // Function to print the Mad Libs game template
 void printGame(char game[][MAX_LENGTH], int lineCount) { // KACE
 	for (int i = 0; i < lineCount; i++) {
