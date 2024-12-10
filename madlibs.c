@@ -15,59 +15,23 @@ void replaceIndex(char game[][MAX_LENGTH], char user_inputs[MAX_WORDS][MAX_LENGT
 void printGame(char game [][MAX_LENGTH], int lineCount); // KACE
 void initialize_arr(char arr[][MAX_LENGTH], int size); // DON
 void initialize_user_inputs(char user_inputs [MAX_WORDS][MAX_LENGTH], int size); // TAYLOR
-void playGame(char game[][MAX_LENGTH], char user_inputs[MAX_WORDS][MAX_LENGTH]); // TAYLOR
+void playGame(char game[][MAX_LENGTH], char userInput[MAX_WORDS][MAX_LENGTH]); // TAYLOR
 
 int main(){ //KACE
 	char game[MAX_WORDS][MAX_LENGTH];
 	char user_inputs[MAX_WORDS][MAX_LENGTH];
-	char arr[MAX_WORDS][MAX_LENGTH];
-	int size;
 	int lineCount = 0;
-
-// Create the madlibs.txt file and write the initial Mad Libs template
-FILE *file = fopen("madlib2.txt", "w"); // Open the file for writing
-	if (file == NULL) {
-		printf("Error creating madlib2.txt.\n");
-		return 0; // Exit if unable to open file
-	}
-
-// Write the Mad Libs template to the file
-	fprintf(file, "Today, every student has a computer\n");
-	fprintf(file, "A\n");
-	fprintf(file, "enough to fit into their\n");
-	fprintf(file, "N\n");
-	fprintf(file, ". They can solve any math problem by simply pushing the computer's\n");
-	fprintf(file, "A\n");
-	fprintf(file, "buttons. Computers can add, subtract, multiply, and\n");
-	fprintf(file, "V\n");
-	fprintf(file, ". They can also\n");
-	fprintf(file, "V\n");
-	fprintf(file, "better than a human. They have a\n");
-	fprintf(file, "A\n");
-	fprintf(file, "screen that shows all kinds of\n");
-	fprintf(file, "N\n");
-	fprintf(file, "and\n");
-	fprintf(file, "A\n");
-	fprintf(file, "figures.\n");
-	fprintf(file, "I V down the stairs to see if I could help V the dinner.\n\n");
-	fclose(file);
 
 // Load the Mad Libs game from the file
 	loadGame(game, &lineCount);
+	initialize_user_inputs(user_inputs, MAX_WORDS);
+	playGame(game, user_inputs);
 	
-// Initializing the array
-	initialize_arr(arr, size);
-	
-// User input
-	userInput(user_inputs, lineCount, game);
-
-// Print the game content
-	printf("\nLoaded Mad Libs Template:\n");
-	printGame(game, lineCount);
 
 return 0;
 }
- // Function to load the Mad Libs game template into memory
+
+// Function to load the Mad Libs game template into memory
 void loadGame(char game[][MAX_LENGTH], int *lineCount) { // KACE
 	FILE *file = fopen("madlib2.txt", "r"); // Open the file for reading
 		if (file == NULL) {
@@ -87,7 +51,9 @@ int count = 0;
 fclose(file);
 *lineCount = count; // Update the line count
 }
-//Function to get user input for the game
+             
+
+//Function to get user input for Mad Libs game
 void userInput(char user_inputs[MAX_WORDS][MAX_LENGTH], int lineCount, char game[][MAX_LENGTH]){
 	char placeholder;
 	for(int i = 0; i < lineCount; i++){
@@ -112,22 +78,54 @@ void userInput(char user_inputs[MAX_WORDS][MAX_LENGTH], int lineCount, char game
 	   	 }
 	}
    }
-}     
-   
+} 
+
+// Function to replace placeholder
+void replaceIndex(char game[][MAX_LENGTH], char user_inputs[MAX_WORDS][MAX_LENGTH], int lineCount){	
+	for(int i = 0; i < lineCount; i++){
+		for(int j = 0; game[i][j] != '\0'; j++){
+			if(game[i][j] == 'A' || game[i][j] == 'N' || game[i][j] =='V'){
+			  char *input = user_inputs[i];
+			  int inputLength = 0;
+			  while(input[inputLength] != '\0'){
+			       inputLength++;
+			  }
+			  game[i][j] = '\0';
+			  for(int k = 0; k < inputLength; k++){
+			  	game[i][j + k] = input[k];
+			  }
+			  j += inputLength;
+			  }	     	
+			 }
+			}
+		}	
 // Function to print the Mad Libs game template
 void printGame(char game[][MAX_LENGTH], int lineCount) { // KACE
 	for (int i = 0; i < lineCount; i++) {
-		printf("%s", game[i]); // Print each line
+		printf("%s ", game[i]); // Print each line
 	}
 }
-			 	
 //Function to initialize 2d Array
 void initialize_arr(char arr[][MAX_LENGTH], int size){
 	for(int i = 0; i < size; i++){
 		arr[i][0] = '\0';// Initializes an empty string	
                }
-}	         											
-		 
+}             
+           
+void initialize_user_inputs(char user_inputs [MAX_WORDS][MAX_LENGTH], int size){
+	for(int i = 0; i < size; i++){
+		user_inputs[i][0] = '\0';
+		}
+	}
+void playGame(char game[][MAX_LENGTH], char user_inputs[MAX_WORDS][MAX_LENGTH]){
+	int lineCount = 0;
+	for(int i = 0; game[i][0] != '\0'; i++){
+		lineCount++;
+	}
+	userInput(user_inputs, lineCount, game);
+	replaceIndex(game, user_inputs, lineCount);
+	printGame(game, lineCount);
+}		 
 
 
 
